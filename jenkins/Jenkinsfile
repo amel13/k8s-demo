@@ -10,7 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 withCredentials([
-                    string(credentialsId: 'DOCKER_REGISTRY_USER', variable: 'DOCKER_REGISTRY_USER'),
+                    string(credentialsId: 'DOCKER_REGISTRY_USER', variable: 'DOCKER_REGISTRY_USER')
                     string(credentialsId: 'DOCKER_REGISTRY_TOKEN', variable: 'DOCKER_REGISTRY_TOKEN')
                 ]) {
                     sh 'docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_TOKEN'
