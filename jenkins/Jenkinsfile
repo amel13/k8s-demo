@@ -32,7 +32,7 @@ pipeline {
                 sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.22.11/bin/linux/amd64/kubectl'
                 sh 'chmod +x ./kubectl'
                 sh 'mkdir -p ~/.kube'
-                sh 'echo $K8S_CONFIG > ~/.kube/config'
+                sh 'echo $K8S_CONFIG > ~/.kube/config.yaml'
                 sh './kubectl version'
             }
         }
