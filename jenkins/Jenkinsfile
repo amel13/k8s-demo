@@ -14,6 +14,7 @@ pipeline {
                 ]) {
                     sh 'docker login -u amelkinaf -p $DOCKER_REGISTRY_TOKEN'
                 }
+                sh 'echo $DOCKER_REGISTRY_TOKEN'
                 sh 'docker build build/app1 --tag amelkinaf/httpd:2.0'
                 sh 'docker push amelkinaf/httpd:2.0'
             }
