@@ -1,0 +1,75 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: app1-deployment
+#  labels:
+#    deploy: app1-label
+spec:
+  # A deployment's specification really only 
+  # has a few useful options
+  
+  # 1. How many copies of each pod do we want?
+  replicas: 1
+
+  # 2. How do want to update the pods?
+  # strategy: Recreate
+
+  # 3. Which pods are managed by this deployment?
+  selector:
+    # This must match the labels we set on the pod!
+    matchLabels:
+      deploy: app1-label
+  
+  # This template field is a regular pod configuration 
+  # nested inside the deployment spec
+  template:
+    metadata:
+      # Set labels on the pod.
+      # This is used in the deployment selector.
+      labels:
+        deploy: app1-label
+    spec:
+      hostname: app1-host
+      containers:
+        - name: nginx
+          image: httpd:2.4
+          ports:
+            - containerPort: 80
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: app2-deployment
+#  labels:
+#    deploy: app2-label
+spec:
+  # A deployment's specification really only
+  # has a few useful options
+
+  # 1. How many copies of each pod do we want?
+  replicas: 1
+
+  # 2. How do want to update the pods?
+  # strategy: Recreate
+
+  # 3. Which pods are managed by this deployment?
+  selector:
+    # This must match the labels we set on the pod!
+    matchLabels:
+      deploy: app2-label
+
+  # This template field is a regular pod configuration
+  # nested inside the deployment spec
+  template:
+    metadata:
+      # Set labels on the pod.
+      # This is used in the deployment selector.
+      labels:
+        deploy: app2-label
+    spec:
+      hostname: app2-host
+      containers:
+        - name: nginx
+          image: httpd:2.4
+          ports:
+            - containerPort: 80

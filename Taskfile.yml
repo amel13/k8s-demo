@@ -1,0 +1,14 @@
+version: '2'
+tasks:
+  deploy:
+    cmds:
+      - kubectl apply
+        -f deployment.yml
+        -f service.yml
+        -f ingress.yml
+  undeploy:
+    cmds:
+      - kubectl delete
+        -f deployment.yml
+        -f service.yml
+        -f ingress.yml
