@@ -9,14 +9,28 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                /* environment {
+                    DOCKER_REGISTRY_TOKEN = credentials('DOCKER_REGISTRY_TOKEN')
+                } */
                 withCredentials([
                     string(credentialsId: 'DOCKER_REGISTRY_TOKEN', variable: 'DOCKER_REGISTRY_TOKEN')
                 ]) {
                     sh 'docker login -u amelkinaf -p $DOCKER_REGISTRY_TOKEN'
                 }
-                sh 'echo $DOCKER_REGISTRY_TOKEN'
                 sh 'docker build build/app1 --tag amelkinaf/httpd:3.0'
                 sh 'docker push amelkinaf/httpd:3.0'
+            }
+        }
+        stage('Deploy') {
+            agent {
+                docker 'bitnami/kubectl:1.22'
+            }
+            environment {
+                K8S_CONFIG = credentials('K8S_CONFIG')
+            }
+            steps {
+                sh 'echo $K8S_CONFIG > ~/.kube/config'
+                sh 'kubectl version'
             }
         }
     }
