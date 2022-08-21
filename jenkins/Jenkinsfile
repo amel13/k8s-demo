@@ -9,9 +9,14 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_TOKEN'
-                sh 'docker build build/app1 --tag amelkinaf/httpd:2.0'
-                sh 'docker push amelkinaf/httpd:2.0'
+                withCredentials([
+                    string(credentialsId: 'DOCKER_REGISTRY_USER', variable: 'DOCKER_REGISTRY_USER'),
+                    string(credentialsId: 'DOCKER_REGISTRY_TOKEN', variable: 'DOCKER_REGISTRY_TOKEN')
+                ]) {
+                    sh 'docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_TOKEN'
+                    sh 'docker build build/app1 --tag amelkinaf/httpd:2.0'
+                    sh 'docker push amelkinaf/httpd:2.0'
+                }
             }
         }
     }
