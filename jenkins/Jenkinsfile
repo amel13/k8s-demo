@@ -11,7 +11,7 @@ pipeline {
             steps {
                 sh 'docker login -u amelkinaf -p dckr_pat_-vZPcc25G17XlKPzszocLeR-eeg'
                 sh 'docker build build/app1 --tag amelkinaf/httpd:2.0'
-                sh 'docker push amelkinaf/httpd:1.0'
+                sh 'docker push amelkinaf/httpd:2.0'
             }
         }
     }
