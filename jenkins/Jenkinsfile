@@ -29,12 +29,10 @@ pipeline {
                 K8S_CONFIG = credentials('K8S_CONFIG')
             }
             steps {
-                sh 'echo $K8S_CONFIG'
                 sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.22.11/bin/linux/amd64/kubectl'
                 sh 'chmod +x ./kubectl'
-                sh 'pwd'
                 sh 'mkdir -p ~/.kube'
-                sh 'cat $K8S_CONFIG > ~/.kube/config.yaml'
+                sh 'cat $K8S_CONFIG > ~/.kube/config'
                 sh './kubectl version'
             }
         }
