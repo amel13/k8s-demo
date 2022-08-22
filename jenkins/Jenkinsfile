@@ -34,6 +34,7 @@ pipeline {
                 sh 'mkdir -p ~/.kube'
                 sh 'cat $K8S_CONFIG > ~/.kube/config'
                 sh './kubectl version'
+                sh 'task deploy'
             }
         }
     }
